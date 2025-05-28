@@ -8,29 +8,21 @@ test('Test Login With Valid Username and Password',async({page})=>{
 const loginPage=new LoginPageClass(page); 
 await page.goto(process.env.BASE_URL!);
 await loginPage.login(process.env.USERNAME1!,process.env.PASSWORD!)
-// await page.locator('[data-test="username"]').fill('problem_user')
-// await page.locator('[data-test="password"]').fill('secret_sauce')
-// await page.waitForTimeout(2000)
-// await page.click('#login-button')
 expect(page.url()).toContain('inventory.html')
 }
 )   
 
 test('Test Login With Valid Username and Invalid Password' ,async({page})=>{
-
 const loginPage=new LoginPageClass(page); 
 const errorLoginPage=new LoginPageClass(page);
 await page.goto(process.env.BASE_URL!);
 await loginPage.login(process.env.USERNAME1!,'secret')
 await errorLoginPage.errorLogin();
-
-
 }
 )
 test('Test Login With Invalid Username and Valid Password' ,async({page})=>{
 const loginPage=new LoginPageClass(page); 
 const errorLoginPage=new LoginPageClass(page);
-
 await page.goto(process.env.BASE_URL!);
 await loginPage.login('problem',process.env.PASSWORD!)
 await errorLoginPage.errorLogin();
@@ -49,17 +41,13 @@ test('Test Login With Empty Username and Password' ,async({page})=>{
 const loginPage=new LoginPageClass(page); 
 await page.goto(process.env.BASE_URL!);
 await loginPage.login('','')
-
 await expect (page.locator('[data-test="error"]')).toBeVisible()
 await expect (page.locator('[data-test="error"]')).toContainText('Username is required')
-
 }
 )
 test('Test Login With Empty Username' ,async({page})=>{
 const loginPage=new LoginPageClass(page); 
-
 await page.goto(process.env.BASE_URL!);
-
 await loginPage.login('',process.env.PASSWORD!)
 await expect (page.locator('[data-test="error"]')).toBeVisible()
 await expect (page.locator('[data-test="error"]')).toContainText('Username is required')
@@ -68,12 +56,9 @@ await expect (page.locator('[data-test="error"]')).toContainText('Username is re
 )
 test('Test Login With Empty Password' ,async({page})=>{
 const loginPage=new LoginPageClass(page); 
-
 await page.goto(process.env.BASE_URL!);
-
 await loginPage.login(process.env.USERNAME1!,'')
 await expect (page.locator('[data-test="error"]')).toBeVisible()
 await expect (page.locator('[data-test="error"]')).toContainText('Password is required')
-
 }
 )
